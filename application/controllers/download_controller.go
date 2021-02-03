@@ -54,3 +54,17 @@ func (c *DownloadController) GetPdf() (int, error) {
 	c.DownloadPdf(&c.Ctx, fileName, buffer)
 	return 0, nil
 }
+
+//下载csv文件
+func (c *DownloadController) GetCsv() (int, error) {
+
+	fileName := c.Ctx.URLParamDefault("file", "测试csv文件")
+	buffer, err := services.GetCsv()
+	if err != nil {
+		golog.Errorf("DownloadCSV error:%v", err)
+		return c.Ctx.JSON(c.RenderError(2002, "文件下载出错"))
+	}
+
+	c.DownloadCsv(&c.Ctx, fileName, buffer)
+	return 0, nil
+}

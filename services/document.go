@@ -81,3 +81,13 @@ func GetPdf() (bytes.Buffer, error) {
 	err = pdf.Write(&buffer)
 	return buffer, err
 }
+
+func GetCsv() (bytes.Buffer, error) {
+	var records [][]string
+	records = append(records,
+		[]string{"Name", "Age", "Sex"},
+		[]string{"Jane", "31", "F"},
+		[]string{"Zeal", "27", "M"},
+	)
+	return buildBufferCSV(records)
+}

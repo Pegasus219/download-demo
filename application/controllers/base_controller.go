@@ -73,3 +73,13 @@ func (c *BaseController) DownloadPdf(ctx *iris.Context, filename string, buffer 
 	r := bytes.NewReader(buffer.Bytes())
 	http.ServeContent(wt, req, filename, time.Now(), r)
 }
+
+func (c *BaseController) DownloadCsv(ctx *iris.Context, filename string, buffer bytes.Buffer) {
+	req := (*ctx).Request()
+	wt := (*ctx).ResponseWriter()
+	wt.Header().Add("Content-Disposition", "attachment; filename="+filename+".csv")
+	wt.Header().Add("Content-Type", "text/csv")
+
+	r := bytes.NewReader(buffer.Bytes())
+	http.ServeContent(wt, req, filename, time.Now(), r)
+}
